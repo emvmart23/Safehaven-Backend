@@ -1,4 +1,4 @@
-import  {Schema,  model}  from 'mongoose' 
+import  { Schema,  model }  from 'mongoose' 
 const MySchema = new Schema ({
     content:{
         type:String,
@@ -15,5 +15,5 @@ const MySchema = new Schema ({
     }
 })
 
-const NoteModal = model ("apinote" , Schema )
-module.export = NoteModal
+const NoteModal = model ("apinote" , MySchema )
+export default NoteModal;
