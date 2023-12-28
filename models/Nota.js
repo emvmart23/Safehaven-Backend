@@ -15,5 +15,5 @@ const MySchema = new Schema({
   },
 });
 
-const NoteModal = model("apinote", MySchema);
-export default NoteModal;
+const User = model("apinote", MySchema);
+export default User;

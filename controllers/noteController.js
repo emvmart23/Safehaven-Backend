@@ -1,4 +1,6 @@
 import Nota from "../models/Nota.js";
+import fs from "fs";
+import PDFDocument from "pdfkit";
 
 export const createNote = async (req, res, next) => {
   try {
@@ -14,19 +16,19 @@ export const notes = async (req, res, next) => {
   try {
     const notas = await Nota.find();
     res.json(notas);
-  } catch(error) {
+  } catch (error) {
     res.status(500).send(error);
   }
 };
 
 export const showNote = async (req, res, next) => {
-  try{
-      const notas = await Nota.findById(req.params.id);
-      res.json(notas)
-  }catch{
-      res.status(404).json({ msg: "note not found" });
-  } 
-}
+  try {
+    const notas = await Nota.findById(req.params.id);
+    res.json(notas);
+  } catch {
+    res.status(404).json({ msg: "note not found" });
+  }
+};
 
 export const updateNote = async (req, res, next) => {
   try {
@@ -62,4 +64,28 @@ export const deleteNote = async (req, res, next) => {
   }
 };
 
+export const filePdf = async (req, res) => {
+  try {
+    const nota = await Nota.find();
 
+    if (!nota) {
+      return res.status(404).json({ msg: "Nota not found" });
+    }
+
+    const doc = new PDFDocument();
+    doc.pipe(fs.createWriteStream("nota.pdf"));
+    doc.fontSize(20).text("Detalles de la Nota", 100, 100);
+    doc.fontSize(12).text(`Título: ${nota.content}`, 100, 150);
+    doc.fontSize(12).text(`Contenido: ${nota.important}`, 100, 180);
+
+    doc.end();
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", 'attachment; filename="nota.pdf"');
+
+    const stream = fs.createReadStream("nota.pdf");
+    stream.pipe(res);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
