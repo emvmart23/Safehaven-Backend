@@ -6,7 +6,7 @@ const RequestSchema = new Schema(
       required: true,
       maxlenght: 40,
     },
-    experien: {
+    experience: {
       type: String,
       required: true,
     },
@@ -14,7 +14,7 @@ const RequestSchema = new Schema(
       type: String,
       required: true,
     },
-    antecedent: {
+    criminalRecord: {
       type: String,
       required: true,
     },

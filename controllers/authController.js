@@ -2,49 +2,41 @@ import User from "../models/User.js";
 
 export const register = async (req, res, next) => {
   try {
+    const { password } = req.body;
     const newUser = new User({
+      name: req.body.name,
+      lastname: req.body.lastname,
       username: req.body.username,
       email: req.body.email,
-      role: req.body.role,
     });
-    await newUser.setPassword(req.body.password);
+    newUser.setPassword(password);
     await newUser.save();
-  } catch (err) {
-    res.status(500).send(err);
-  }
-};
-
-export const deleteUser = async (req, res, next) => {
-  try {
-    const id = req.params.id;
-
-    const user = await User.findByIdAndDelete(id);
-
-    if (!user) {
-      return res.status(404).json({ msg: "user not found" });
-    }
-
-    res.send(`user ${user.username} delete`);
+    return res.status(201).json({ msg: "User Registration Successfull." });
   } catch (err) {
     next(err);
   }
 };
 
-export const login = (req, res, next) => {
+export const login = async (req, res, next) => {``
   try {
     const { email, password } = req.body;
 
-    const currentEmail = User.findOne({ email });
+    if (!email || !password)
+      return res
+        .status(400)
+        .json({ message: "Either email or password field is empty" });
 
-    if (!currentEmail) {
-      res.status(401).json({ err: "invalid email or passwors" });
-    }
+    const currentUser = await User.findOne({ email: email });
 
-    const validatePassword = User.validPassword(password);
+    if (!currentUser)
+      return res.status(400).json({ message: "User not found." });
 
-    if (!validatePassword) {
-      res.status(401).json({ message: `Incorrect password` });
-    }
+    const isPasswordValid = await currentUser.validPassword(password);
+
+    if (!isPasswordValid)
+      return res.status(400).json({ message: "Invalid password." });
+
+    return res.status(200).json({ msg: "Logged In !!" });
   } catch (err) {
     next(err);
   }

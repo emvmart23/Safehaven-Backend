@@ -1,5 +1,5 @@
 import mongoose, { Schema, model } from "mongoose";
-const MySchema = new Schema({
+const ServiceSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -11,5 +11,5 @@ const MySchema = new Schema({
   }
 },{ timestamps: true});
 
-const Service = model("service", MySchema);
+const Service = model("service", ServiceSchema);
 export default Service;

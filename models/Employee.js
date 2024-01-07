@@ -13,12 +13,12 @@ const EmployeeSchema = new Schema({
     type: String,
     required: true,
   },
-  info: {
+  infoPersonal: {
     type: String,
     required: true,
   },
   cellphone: {
-    type: String,
+    type: number,
     required: true,
   },
   email: {

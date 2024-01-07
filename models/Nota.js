@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-const MySchema = new Schema({
+const NotaSchema = new Schema({
   content: {
     type: String,
     required: true,
@@ -15,5 +15,5 @@ const MySchema = new Schema({
   },
 });
 
-const User = model("apinote", MySchema);
+const User = model("apinote", NotaSchema);
 export default User;
