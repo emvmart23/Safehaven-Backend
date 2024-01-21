@@ -17,13 +17,13 @@ router.post("/register", register);
 router.post("/login", login);
 
 // endpoint from api Notas
-router.get("/notes",checkAuth, notes);
-router.get("/showNote/:id", showNote);
-router.post("/create", createNote);
-router.put("/update/:id", updateNote);
-router.delete("/delete/:id", deleteNote);
+router.get("/notes", checkAuth, notes);
+router.get("/showNote/:id", checkAuth, showNote);
+router.post("/create", checkAuth, createNote);
+router.put("/update/:id", checkAuth, updateNote);
+router.delete("/delete/:id", checkAuth, deleteNote);
 
 // endpoint to generate pdf
-router.post("/pdf", filePdf);
+router.post("/pdf", checkAuth, filePdf);
 
 export default router;
