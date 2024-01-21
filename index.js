@@ -2,7 +2,7 @@ import bodyParser from "body-parser";
 import conection from "./db/db.js";
 import cors from "cors";
 import express from "express";
-import errorHandler from "./midlewares/errorHandler.js";
+import { errorHandler } from "./midlewares/errorHandler.js";
 import notaRouter from "./routes/nota.js";
 import dotenv from "dotenv";
 

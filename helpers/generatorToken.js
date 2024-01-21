@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-function generateAccesToken(user) {
+export const generateAccesToken = async (user) => {
   const payload = {
     id: user.id,
     email: user.email,
@@ -11,16 +11,16 @@ function generateAccesToken(user) {
   const options = { expiresIn: "5h" };
 
   return jwt.sign(payload, key, options);
-}
+};
 
-function validationToken(token) {
+export const verifyToken = async (token) => {
   const key = process.env.KEY_SECRET;
   try {
     const decoded = jwt.verify(token, key);
     return { succes: true, data: decoded };
   } catch (error) {
-    return { succes: false, messsage: messsage.error };
+    return { succes: false, message: error };
   }
-}
+};
 
-export { generateAccesToken, validationToken };
+
