@@ -5,14 +5,11 @@ export const checkAuth = async (req, res, next) => {
     const token = req.headers.authorization.split(' ').pop()
     
     const { data } = await verifyToken(token);
-    
     if (data._id) {
       next();
     }else {
-      res.status(409)
+      return res.status(409)
     }
-
-    
   } catch (error) {
     console.log(error);
   }
