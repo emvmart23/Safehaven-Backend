@@ -39,7 +39,7 @@ export const updateNote = async (req, res, next) => {
     let nota = await Nota.findByIdAndUpdate(id, updateData, options);
 
     if (!nota) {
-      return res.status(404).json({ msg: "product does not exist" });
+      return res.status(404).json({ msg: "note does not exist" });
     }
 
     res.json(nota);
