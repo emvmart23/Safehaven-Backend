@@ -8,7 +8,7 @@ export const createNote = async (req, res, next) => {
     await noti.save();
     res.send(noti);
   } catch (error) {
-    res.status(500).send(error);
+    next(error)
   }
 };
 
@@ -17,7 +17,7 @@ export const notes = async (req, res, next) => {
     const notas = await Nota.find();
     res.json(notas);
   } catch (error) {
-    res.status(500).send(error);
+    next(error)
   }
 };
 
@@ -26,7 +26,7 @@ export const showNote = async (req, res, next) => {
     const notas = await Nota.findById(req.params.id);
     res.json(notas);
   } catch {
-    res.status(404).json({ msg: "note not found" });
+    next(error)
   }
 };
 
@@ -60,7 +60,7 @@ export const deleteNote = async (req, res, next) => {
 
     res.send(`note ${nota.name} delete`);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    next(error)
   }
 };
 
@@ -86,6 +86,6 @@ export const filePdf = async (req, res) => {
     const stream = fs.createReadStream("nota.pdf");
     stream.pipe(res);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    next(error)
   }
 };
