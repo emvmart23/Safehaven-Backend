@@ -1,16 +1,16 @@
 import { verifyToken } from "../helpers/generatorToken.js";
 
-export const checkAuth = async (req, res, next) => {
-  const currentDataUser = req.headers.authorization;
-
+export const checkAuth = async (req, res, next) => { 
   try {
-    if (!currentDataUser)
-      return res.status(403).json({ message: "Access denied" });
-    const token = req.headers.authorization.split(" ").pop();
-    const decoded = await verifyToken(token);
-    req.user = decoded;
-    next();
+    const token = req.headers.authorization.split(' ').pop()
+    const { data } = await verifyToken(token);
+    if (data.id) {
+      req.user = data
+      next();
+    }else {
+      return res.status(409)
+    }
   } catch (error) {
-    return res.status(400).send("Invalid token");
+    next(error) 
   }
 };

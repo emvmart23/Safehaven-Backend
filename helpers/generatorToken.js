@@ -1,17 +1,29 @@
 import jwt from "jsonwebtoken";
 
 export const generateAccesToken = async (user) => {
+  const key = process.env.KEY_SECRET;
   const payload = {
     id: user.id,
     email: user.email,
   };
 
-  const key = process.env.KEY_SECRET;
+  const accessToken = jwt.sign(
+    payload,
+    key,
+    { expiresIn: "5h" } 
+  )
 
-  const options = { expiresIn: "5h" };
+  const refreshToken = jwt.sign(
+    payload,
+    key,
+    { expiresIn: "1d"  }
+  )
 
-  return jwt.sign(payload, key, options);
+
+  return { accessToken, refreshToken }
 };
+
+
 
 export const verifyToken = async (token) => {
   const key = process.env.KEY_SECRET;

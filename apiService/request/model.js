@@ -26,5 +26,5 @@ const RequestSchema = new Schema(
   { timestamps: true }
 );
 
-const Request = model("request", RequestSchema);
+const Request = model("Request", RequestSchema);
 export default Request;

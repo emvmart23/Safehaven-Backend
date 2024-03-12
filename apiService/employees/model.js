@@ -31,5 +31,5 @@ const EmployeeSchema = new Schema({
   }
 }, { timestamps: true});
 
-const Employee = model("employee", EmployeeSchema);
+const Employee = model("Employee", EmployeeSchema);
 export default Employee;
