@@ -23,9 +23,8 @@ const UserScheme = new Schema(
       type: String,
       required: true,
     },
-    location: {
-      type: Number,
-      required: true,
+    phone: {
+      type: String
     },
     role: {
       type: String,
