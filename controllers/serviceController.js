@@ -9,3 +9,13 @@ export const createService = async (req, res, next) => {
     next(error);
   }
 };
+
+export const services = async (req, res, next) => {
+  try {
+    const services = await Service.find(req.body)
+    res.json(services)
+  }catch(error){
+    next(error)
+  }
+}
+
